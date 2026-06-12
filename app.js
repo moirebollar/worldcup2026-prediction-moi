@@ -8,7 +8,7 @@ const DATA_SRC = 'https://raw.githubusercontent.com/openfootball/worldcup.json/r
 // POR FAVOR
 const LEADERBOARD_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQUyL4ZUfO_JbyshTAfkditZSn0HYQwzjhFYqC_RVjH0Jn7Q84unB69v1HxRSuJyuvxaxoWFUEaZTXr/pub?gid=863782740&single=true&output=csv'
 const FORM_ID = '1FAIpQLSeFCWvE90Q4JRS_cRqiuUWCFYkgitpW8yaAAQ2ggg-0NdnipA';
-const ENTRY_ID = 'entry.960790199';
+const ENTRY_ID = 'entry.898511283';
 // REPITO, POR FAVOR
 
 // Puedes cambiar los valores por tus propias puntuaciones si quieres
