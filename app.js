@@ -4063,14 +4063,12 @@ function renderAll() {
       state.matchTeams = {};
       state.knockoutResults = {};
     }
-
-    renderGroups();
-    renderThirdPlace();
-    renderBracket();
-    renderAwardSelects();
-    return;
   }
 
+  renderGroups();
+  renderThirdPlace();
+  renderBracket();
+  renderAwardSelects();
   loadLeaderboard();
 }
 
@@ -4157,10 +4155,10 @@ async function init() {
 
   setupResultsAdminUnlock();
 
-  // restoreLocalPrediction();
-// fillAwards(state.awards);
-// computeMatchTeams();
-   renderAll();
+  restoreLocalPrediction();
+  fillAwards(state.awards);
+  computeMatchTeams();
+  renderAll();
 
   document.querySelectorAll('#awardGb1,#awardGb2,#awardGb3,#awardBa1,#awardBa2,#awardBa3').forEach(el => {
     el.addEventListener('input', saveLocalPredictionSoon);
