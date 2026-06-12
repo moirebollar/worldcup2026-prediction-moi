@@ -815,6 +815,44 @@ async function loadData() {
       ]
     };
     BRACKET_R32 = KO_TREE.round32;
+
+    // ── AUTO-RESULTS: populate RESULTS from openfootball live scores ──
+    if (typeof RESULTS !== 'undefined') {
+      // 1. Fill groupMatches from finished matches
+      data.matches.forEach(m => {
+        if (!m.group || !m.group.startsWith('Group ')) return;
+        if (!m.score || !m.score.ft) return; // not played yet
+        const letter = m.group.replace('Group ', '');
+        const key = m.team1 + '__' + m.team2;
+        if (!RESULTS.groupMatches[letter]) RESULTS.groupMatches[letter] = {};
+        RESULTS.groupMatches[letter][key] = { home: m.score.ft[0], away: m.score.ft[1] };
+      });
+
+      // 2. Compute final standings when all 6 group matches are done
+      GROUP_NAMES.forEach(letter => {
+        const teams = (TEAMS_BY_GROUP[letter] || []).map(t => t.name);
+        const matchMap = RESULTS.groupMatches[letter] || {};
+        if (Object.keys(matchMap).length < 6) return; // group not finished yet
+        const pts = {}, gd = {}, gf = {};
+        teams.forEach(t => { pts[t] = 0; gd[t] = 0; gf[t] = 0; });
+        Object.entries(matchMap).forEach(([key, res]) => {
+          const parts = key.split('__');
+          const t1 = parts[0], t2 = parts[1];
+          if (!(t1 in pts) || !(t2 in pts)) return;
+          const h = res.home, a = res.away;
+          gf[t1] += h; gf[t2] += a;
+          gd[t1] += h - a; gd[t2] += a - h;
+          if (h > a) pts[t1] += 3;
+          else if (h < a) pts[t2] += 3;
+          else { pts[t1]++; pts[t2]++; }
+        });
+        RESULTS.groups[letter] = teams.slice().sort((a, b) =>
+          (pts[b] - pts[a]) || (gd[b] - gd[a]) || (gf[b] - gf[a])
+        );
+      });
+    }
+    // ── END AUTO-RESULTS ──
+
     LOADED = true;
     return true;
   } catch(e) {
