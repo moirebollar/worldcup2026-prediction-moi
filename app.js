@@ -4133,9 +4133,9 @@ async function init() {
   if (btnScoringHelp) {
     btnScoringHelp.addEventListener('click', openScoringHelpModal);
   }
-  // document.getElementById('btnSubmit').addEventListener('click', submitPrediction);
-// document.getElementById('confirmNameSubmit').addEventListener('click', confirmSubmitPrediction);
-// document.getElementById('cancelNameSubmit').addEventListener('click', closeNameModal);
+  document.getElementById('btnSubmit').addEventListener('click', submitPrediction);
+  document.getElementById('confirmNameSubmit').addEventListener('click', confirmSubmitPrediction);
+  document.getElementById('cancelNameSubmit').addEventListener('click', closeNameModal);
 // document.getElementById('playerNameInput').addEventListener('keydown', e => {
 //   if (e.key === 'Enter') confirmSubmitPrediction();
 //   if (e.key === 'Escape') closeNameModal();
